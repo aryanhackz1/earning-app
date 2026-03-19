@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>💎 iPHONE BLUE • CHROME FULLSCREEN</title>
+    <title>💎 iPHONE BLUE • NO SLIDE BAR</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Chart.js 3 -->
@@ -44,19 +44,21 @@
             color: #fff;
         }
 
-        /* iPhone fullscreen mode styles */
+        /* iPhone fullscreen mode styles - NO SLIDE BAR */
         .dashboard:-webkit-full-screen {
             max-width: 100%;
             width: 100%;
             height: 100vh;
             border-radius: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            overflow-y: auto;
+            display: block;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
             padding-top: max(env(safe-area-inset-top, 20px), 20px);
-            padding-bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+            padding-bottom: max(env(safe-area-inset-bottom, 30px), 30px);
             background: rgba(8, 12, 22, 0.98);
+            /* Scrollbar hide but scrollable */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
         }
 
         .dashboard:fullscreen {
@@ -64,13 +66,28 @@
             width: 100%;
             height: 100vh;
             border-radius: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            overflow-y: auto;
+            display: block;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
             padding-top: max(env(safe-area-inset-top, 20px), 20px);
-            padding-bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+            padding-bottom: max(env(safe-area-inset-bottom, 30px), 30px);
             background: rgba(8, 12, 22, 0.98);
+            /* Scrollbar hide but scrollable */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+
+        /* Hide scrollbar for Chrome/Safari/WebKit */
+        .dashboard:-webkit-full-screen::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            background: transparent;
+        }
+
+        .dashboard:fullscreen::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            background: transparent;
         }
 
         /* status bar */
@@ -444,18 +461,11 @@
             box-shadow: 0 0 35px #0000FF;
         }
 
-        /* iPhone notch safe area handling for fullscreen */
+        /* iPhone notch safe area handling */
         @supports (padding: max(0px)) {
             .dashboard:fullscreen .status-bar,
             .dashboard:-webkit-full-screen .status-bar {
                 padding-top: max(env(safe-area-inset-top, 10px), 10px);
-            }
-        }
-
-        /* Chrome for iOS specific fixes */
-        @media screen and (-webkit-min-device-pixel-ratio: 2) {
-            .dashboard {
-                -webkit-text-size-adjust: 100%;
             }
         }
     </style>
@@ -735,26 +745,17 @@
                 }
             });
 
-            // ---------- FULLSCREEN BUTTON - iPhone Chrome optimized ----------
+            // ---------- FULLSCREEN BUTTON - NO SLIDE BAR ----------
             fullscreenBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 
                 if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                    // Enter fullscreen - with iOS Chrome support
+                    // Enter fullscreen
                     if (dashboard.requestFullscreen) {
                         dashboard.requestFullscreen();
                     } else if (dashboard.webkitRequestFullscreen) {
                         dashboard.webkitRequestFullscreen();
-                    } else {
-                        // Fallback for older iOS Chrome
-                        dashboard.style.position = 'fixed';
-                        dashboard.style.top = '0';
-                        dashboard.style.left = '0';
-                        dashboard.style.width = '100%';
-                        dashboard.style.height = '100%';
-                        dashboard.style.zIndex = '9999';
-                        dashboard.style.borderRadius = '0';
                     }
                     fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
                 } else {
@@ -763,15 +764,6 @@
                         document.exitFullscreen();
                     } else if (document.webkitExitFullscreen) {
                         document.webkitExitFullscreen();
-                    } else {
-                        // Fallback
-                        dashboard.style.position = '';
-                        dashboard.style.top = '';
-                        dashboard.style.left = '';
-                        dashboard.style.width = '';
-                        dashboard.style.height = '';
-                        dashboard.style.zIndex = '';
-                        dashboard.style.borderRadius = '40px 40px 32px 32px';
                     }
                     fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
                 }
@@ -781,6 +773,9 @@
             function updateFullscreenIcon() {
                 if (document.fullscreenElement || document.webkitFullscreenElement) {
                     fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                    // Ensure scrolling works in fullscreen
+                    dashboard.style.overflowY = 'auto';
+                    dashboard.style.webkitOverflowScrolling = 'touch';
                 } else {
                     fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
                 }
@@ -788,12 +783,6 @@
             
             document.addEventListener('fullscreenchange', updateFullscreenIcon);
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
-            
-            // Handle fullscreen error
-            document.addEventListener('fullscreenerror', function() {
-                console.log('Fullscreen error');
-                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-            });
         })();
     </script>
 </body>
