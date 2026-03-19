@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>💎 BLUE PREMIUM • FULLSCREEN READY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>💎 iPHONE BLUE • CHROME FULLSCREEN</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Chart.js 3 -->
@@ -13,7 +13,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -23,22 +23,54 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 8px;
+            /* iPhone safe area handling */
+            padding-top: env(safe-area-inset-top, 8px);
+            padding-bottom: env(safe-area-inset-bottom, 8px);
         }
 
-        /* main card – dark glass with blue accents */
+        /* main card – optimized for iPhone */
         .dashboard {
             max-width: 500px;
             width: 100%;
-            background: rgba(8, 12, 22, 0.9);
+            background: rgba(8, 12, 22, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 0, 255, 0.3);
-            border-radius: 48px 48px 36px 36px;
+            border-radius: 40px 40px 32px 32px;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(0, 0, 255, 0.15) inset, 0 0 40px rgba(0, 0, 255, 0.35);
-            padding: 26px 20px 20px 20px;
+            padding: 22px 18px 18px 18px;
             transition: all 0.2s;
             color: #fff;
+        }
+
+        /* iPhone fullscreen mode styles */
+        .dashboard:-webkit-full-screen {
+            max-width: 100%;
+            width: 100%;
+            height: 100vh;
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+            padding-top: max(env(safe-area-inset-top, 20px), 20px);
+            padding-bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+            background: rgba(8, 12, 22, 0.98);
+        }
+
+        .dashboard:fullscreen {
+            max-width: 100%;
+            width: 100%;
+            height: 100vh;
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+            padding-top: max(env(safe-area-inset-top, 20px), 20px);
+            padding-bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+            background: rgba(8, 12, 22, 0.98);
         }
 
         /* status bar */
@@ -52,7 +84,7 @@
             letter-spacing: 0.3px;
             padding: 0 5px 10px 5px;
             border-bottom: 1px solid rgba(0, 0, 255, 0.35);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .status-left i {
@@ -101,25 +133,25 @@
         /* main balance */
         .balance-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .balance-label {
-            font-size: 15px;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: #b8ccff;
             background: rgba(0, 0, 30, 0.5);
             display: inline-block;
-            padding: 6px 18px;
+            padding: 5px 16px;
             border-radius: 30px;
             border: 1px solid rgba(0, 0, 255, 0.5);
             backdrop-filter: blur(5px);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .balance-number {
-            font-size: 72px;
+            font-size: 64px;
             font-weight: 800;
             line-height: 1;
             background: linear-gradient(135deg, #ffffff, #7aa5ff);
@@ -132,10 +164,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .balance-number small {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 400;
             background: none;
             -webkit-text-fill-color: #7aa5ff;
@@ -148,21 +181,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            font-size: 18px;
+            gap: 10px;
+            font-size: 16px;
             background: rgba(0, 10, 30, 0.7);
-            padding: 8px 18px;
+            padding: 6px 16px;
             border-radius: 50px;
             width: fit-content;
             margin: 0 auto;
             border: 1px solid rgba(77, 136, 255, 0.3);
+            flex-wrap: wrap;
         }
 
         .profit-up {
             color: #7aa5ff;
             font-weight: 700;
             background: rgba(0, 0, 255, 0.15);
-            padding: 4px 14px;
+            padding: 4px 12px;
             border-radius: 30px;
             display: flex;
             align-items: center;
@@ -175,22 +209,22 @@
 
         .last-update {
             color: #8a9fd1;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         /* live stats cards */
         .live-stats {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: space-between;
-            margin: 28px 0 25px;
+            margin: 20px 0 20px;
         }
 
         .stat-item {
             background: rgba(0, 7, 25, 0.8);
             border: 1px solid rgba(0, 0, 255, 0.4);
-            border-radius: 28px;
-            padding: 16px 0;
+            border-radius: 24px;
+            padding: 14px 0;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -201,42 +235,42 @@
 
         .stat-icon {
             background: rgba(0, 0, 255, 0.2);
-            width: 45px;
-            height: 45px;
-            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             border: 1px solid #4d88ff;
             color: #4d88ff;
-            font-size: 22px;
+            font-size: 20px;
         }
 
         .stat-label {
-            font-size: 13px;
+            font-size: 12px;
             color: #99b3ff;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .stat-value {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             background: linear-gradient(to right, #ffffff, #99b3ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         /* chart area */
         .chart-area {
             background: rgba(0, 5, 20, 0.6);
-            border-radius: 32px;
-            padding: 20px 15px 15px 15px;
+            border-radius: 28px;
+            padding: 16px 12px 12px 12px;
             border: 1px solid rgba(0, 0, 255, 0.4);
             backdrop-filter: blur(4px);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 10px 20px -5px black;
         }
 
@@ -244,9 +278,9 @@
             display: flex;
             justify-content: space-between;
             color: #b0c6ff;
-            font-size: 14px;
-            margin-bottom: 12px;
-            padding: 0 8px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            padding: 0 5px;
         }
 
         .chart-header span i {
@@ -256,33 +290,33 @@
 
         canvas {
             width: 100% !important;
-            height: 180px !important;
+            height: 160px !important;
             display: block;
-            border-radius: 24px;
+            border-radius: 20px;
         }
 
         /* live ticker */
         .ticker-wrap {
             background: rgba(0, 8, 25, 0.8);
-            border-radius: 60px;
-            padding: 12px 18px;
+            border-radius: 50px;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
             border: 1px solid #4d88ff;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
             box-shadow: 0 0 15px rgba(0, 0, 255, 0.2);
         }
 
         .ticker-icon {
             background: #0000FF;
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             color: white;
             box-shadow: 0 0 20px #0000FF;
         }
@@ -292,74 +326,68 @@
         }
 
         .ticker-label {
-            font-size: 14px;
+            font-size: 13px;
             color: #99b8ff;
             font-weight: 500;
         }
 
         .ticker-amount {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: #b8ccff;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .ticker-amount i {
             color: #4d88ff;
-            font-size: 18px;
-            margin-left: 8px;
+            font-size: 16px;
+            margin-left: 6px;
         }
 
         /* history list */
         .history-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .history-item {
             background: rgba(0, 10, 30, 0.5);
-            border-radius: 40px;
-            padding: 16px 20px;
+            border-radius: 36px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border: 1px solid rgba(0, 0, 255, 0.3);
             backdrop-filter: blur(5px);
-            transition: 0.1s;
         }
 
         .history-day {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .history-day i {
-            font-size: 20px;
+            font-size: 18px;
             color: #4d88ff;
         }
 
         .day-name {
             font-weight: 600;
             color: white;
+            font-size: 15px;
         }
 
         .day-date {
-            font-size: 13px;
+            font-size: 12px;
             color: #8aa3dd;
         }
 
         .history-profit {
             font-weight: 700;
-            font-size: 22px;
+            font-size: 20px;
             background: linear-gradient(135deg, #aac3ff, #4d88ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .profit-down {
-            background: linear-gradient(135deg, #ff8a8a, #ff4d4d);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -367,72 +395,68 @@
         /* refresh note */
         .refresh-note {
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             color: #5f73a3;
-            margin-top: 20px;
+            margin-top: 16px;
             border-top: 1px dashed #1a2b4a;
-            padding-top: 15px;
-            margin-bottom: 8px;
+            padding-top: 12px;
+            margin-bottom: 6px;
         }
 
         .refresh-note i {
             color: #4d88ff;
         }
 
-        /* ---------- FULLSCREEN BUTTON (niche chota sa premium) ---------- */
+        /* FULLSCREEN BUTTON - iPhone optimized */
         .fullscreen-btn-container {
             display: flex;
             justify-content: center;
             margin-top: 5px;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
         .fullscreen-btn {
-            background: rgba(0, 20, 50, 0.8);
-            border: 1px solid #4d88ff;
+            background: rgba(0, 20, 50, 0.9);
+            border: 1.5px solid #4d88ff;
             color: #b0ccff;
-            width: 46px;
-            height: 46px;
+            width: 52px;
+            height: 52px;
             border-radius: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             cursor: pointer;
             backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
-            transition: 0.2s;
-            margin-bottom: 5px;
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 0 25px rgba(0, 0, 255, 0.6);
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        .fullscreen-btn:hover {
+        .fullscreen-btn:active {
             background: #0000FF;
             color: white;
-            transform: scale(1.05);
-            box-shadow: 0 0 30px #0000FF;
+            transform: scale(0.95);
+            box-shadow: 0 0 35px #0000FF;
         }
 
-        /* fullscreen mode styles */
-        .dashboard:-webkit-full-screen {
-            max-width: 100%;
-            height: 100vh;
-            border-radius: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow-y: auto;
-            padding-top: 30px;
+        /* iPhone notch safe area handling for fullscreen */
+        @supports (padding: max(0px)) {
+            .dashboard:fullscreen .status-bar,
+            .dashboard:-webkit-full-screen .status-bar {
+                padding-top: max(env(safe-area-inset-top, 10px), 10px);
+            }
         }
 
-        .dashboard:fullscreen {
-            max-width: 100%;
-            height: 100vh;
-            border-radius: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow-y: auto;
-            padding-top: 30px;
+        /* Chrome for iOS specific fixes */
+        @media screen and (-webkit-min-device-pixel-ratio: 2) {
+            .dashboard {
+                -webkit-text-size-adjust: 100%;
+            }
         }
     </style>
 </head>
@@ -500,12 +524,12 @@
 
         <!-- refresh hint -->
         <div class="refresh-note">
-            <i class="fas fa-arrows-rotate"></i> Pull to refresh • earnings update in realtime <i class="fas fa-gem" style="margin-left: 6px; color: #4d88ff;"></i>
+            <i class="fas fa-arrows-rotate"></i> Pull down to refresh • earnings live <i class="fas fa-gem" style="margin-left: 6px; color: #4d88ff;"></i>
         </div>
 
-        <!-- ⬇️⬇️ CHOTA SAA FULLSCREEN BUTTON (YAHAN) ⬇️⬇️ -->
+        <!-- iPhone optimized FULLSCREEN BUTTON -->
         <div class="fullscreen-btn-container">
-            <div class="fullscreen-btn" id="fullscreenBtn" title="Full Screen Mode">
+            <div class="fullscreen-btn" id="fullscreenBtn" title="Full Screen">
                 <i class="fas fa-expand"></i>
             </div>
         </div>
@@ -639,8 +663,8 @@
                             borderWidth: 3,
                             pointBackgroundColor: '#7aa5ff',
                             pointBorderColor: '#000',
-                            pointRadius: 5,
-                            pointHoverRadius: 8,
+                            pointRadius: 4,
+                            pointHoverRadius: 7,
                             tension: 0.2,
                             fill: true,
                         }]
@@ -650,16 +674,27 @@
                         maintainAspectRatio: false,
                         plugins: {
                             legend: { display: false },
-                            tooltip: { backgroundColor: '#00122e', titleColor: '#7aa5ff' }
+                            tooltip: { 
+                                backgroundColor: '#00122e', 
+                                titleColor: '#7aa5ff',
+                                bodyColor: '#b0c6ff'
+                            }
                         },
                         scales: {
                             y: {
                                 grid: { color: 'rgba(0,0,255,0.1)' },
-                                ticks: { callback: (v) => '$' + v, color: '#b0c6ff' }
+                                ticks: { 
+                                    callback: (v) => '$' + v, 
+                                    color: '#b0c6ff',
+                                    font: { size: 11 }
+                                }
                             },
                             x: {
                                 grid: { display: false },
-                                ticks: { color: '#b0c6ff' }
+                                ticks: { 
+                                    color: '#b0c6ff',
+                                    font: { size: 11 }
+                                }
                             }
                         }
                     }
@@ -676,32 +711,50 @@
             }
             startLiveLoop();
 
-            // click to refresh
+            // click to refresh (except fullscreen button)
             dashboard.addEventListener('click', function(e) {
                 if (e.target.closest('.refresh-note') || e.target.closest('#fullscreenBtn')) return;
                 refreshDashboard();
             });
 
-            // pull down to refresh
+            // pull down to refresh for iPhone
             let touchStartY = 0;
-            document.body.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, {passive: true});
+            let touchStartTime = 0;
+            document.body.addEventListener('touchstart', (e) => { 
+                touchStartY = e.touches[0].clientY;
+                touchStartTime = Date.now();
+            }, {passive: true});
+            
             document.body.addEventListener('touchend', (e) => {
                 const touchEndY = e.changedTouches[0].clientY;
-                if (touchEndY - touchStartY > 70) {
+                const touchEndTime = Date.now();
+                const timeDiff = touchEndTime - touchStartTime;
+                // pull down more than 60px and not too fast (avoid accidental)
+                if (touchEndY - touchStartY > 60 && timeDiff > 100) {
                     refreshDashboard();
                 }
             });
 
-            // ---------- FULLSCREEN BUTTON FUNCTIONALITY ----------
-            fullscreenBtn.addEventListener('click', function() {
-                if (!document.fullscreenElement) {
-                    // Enter fullscreen
+            // ---------- FULLSCREEN BUTTON - iPhone Chrome optimized ----------
+            fullscreenBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    // Enter fullscreen - with iOS Chrome support
                     if (dashboard.requestFullscreen) {
                         dashboard.requestFullscreen();
-                    } else if (dashboard.webkitRequestFullscreen) { // for safari/chrome
+                    } else if (dashboard.webkitRequestFullscreen) {
                         dashboard.webkitRequestFullscreen();
-                    } else if (dashboard.msRequestFullscreen) { // for edge/ie
-                        dashboard.msRequestFullscreen();
+                    } else {
+                        // Fallback for older iOS Chrome
+                        dashboard.style.position = 'fixed';
+                        dashboard.style.top = '0';
+                        dashboard.style.left = '0';
+                        dashboard.style.width = '100%';
+                        dashboard.style.height = '100%';
+                        dashboard.style.zIndex = '9999';
+                        dashboard.style.borderRadius = '0';
                     }
                     fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
                 } else {
@@ -710,26 +763,37 @@
                         document.exitFullscreen();
                     } else if (document.webkitExitFullscreen) {
                         document.webkitExitFullscreen();
-                    } else if (document.msExitFullscreen) {
-                        document.msExitFullscreen();
+                    } else {
+                        // Fallback
+                        dashboard.style.position = '';
+                        dashboard.style.top = '';
+                        dashboard.style.left = '';
+                        dashboard.style.width = '';
+                        dashboard.style.height = '';
+                        dashboard.style.zIndex = '';
+                        dashboard.style.borderRadius = '40px 40px 32px 32px';
                     }
                     fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
                 }
             });
 
-            // optional: change icon when fullscreen changes via ESC
-            document.addEventListener('fullscreenchange', updateFullscreenIcon);
-            document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
-            document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
-            document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
-
+            // Update icon when fullscreen changes
             function updateFullscreenIcon() {
-                if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+                if (document.fullscreenElement || document.webkitFullscreenElement) {
                     fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
                 } else {
                     fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
                 }
             }
+            
+            document.addEventListener('fullscreenchange', updateFullscreenIcon);
+            document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+            
+            // Handle fullscreen error
+            document.addEventListener('fullscreenerror', function() {
+                console.log('Fullscreen error');
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            });
         })();
     </script>
 </body>
